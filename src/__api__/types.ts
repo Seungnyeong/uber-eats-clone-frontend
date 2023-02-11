@@ -554,9 +554,32 @@ export type VerifyEmailOutput = {
   ok: Scalars['Boolean'];
 };
 
+export type CreateAccountMutationVariables = Exact<{
+  createAccountInput: CreateAccountInput;
+}>;
+
+
+export type CreateAccountMutation = { __typename?: 'Mutation', createAccount: { __typename?: 'CreateAccountOutput', ok: boolean, error?: string | null } };
+
 export type LoginMutationVariables = Exact<{
   loginInput: LoginInput;
 }>;
 
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginOutput', ok: boolean, token?: string | null, error?: string | null } };
+
+export type VerifyEmailMutationVariables = Exact<{
+  input: VerifyEmailInput;
+}>;
+
+
+export type VerifyEmailMutation = { __typename?: 'Mutation', verifyEmail: { __typename?: 'VerifyEmailOutput', ok: boolean, error?: string | null } };
+
+export type VerifieduserFragment = { __typename?: 'User', verified: boolean };
+
+export type EditProfileMutationVariables = Exact<{
+  input: EditProfileInput;
+}>;
+
+
+export type EditProfileMutation = { __typename?: 'Mutation', editProfile: { __typename?: 'EditProfileOutput', ok: boolean, error?: string | null } };
