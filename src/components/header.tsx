@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
             <div className="bg-red-500 p-3 px-3 text-center text-xs text-white">please verify your email</div>
         )}
         <header className="py-4">
-            <div className="w-full px-5 xl:px-0 max-w-screen-2xl mx-auto flex justify-between items-center">
+            <div className="w-full px-5 xl:px-10 max-w-screen-2xl mx-auto flex justify-between items-center">
                 <img src={nuberLogo} alt="logo" className="w-24 mb-5"/>
                 <Link to="/edit-profile">
                 <span className="text-xs"><FontAwesomeIcon icon={faUser} className="text-lg"/></span>
