@@ -107,6 +107,13 @@ export type CreateRestaurantInput = {
   name: Scalars['String'];
 };
 
+export type CreateRestaurantOutput = {
+  __typename?: 'CreateRestaurantOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  restaurantId: Scalars['Int'];
+};
+
 export type DeleteDishInput = {
   dishId: Scalars['Int'];
 };
@@ -250,7 +257,7 @@ export type Mutation = {
   createDish: CreateDishOutput;
   createOrder: CreateOrderOutput;
   createPayment: CreatePaymentOutput;
-  createRestaurants: CreateAccountOutput;
+  createRestaurant: CreateRestaurantOutput;
   deleteDish: DeleteDishOutput;
   deleteRestaurant: DeleteRestaurantOutput;
   editDish: EditDishOutput;
@@ -283,7 +290,7 @@ export type MutationCreatePaymentArgs = {
 };
 
 
-export type MutationCreateRestaurantsArgs = {
+export type MutationCreateRestaurantArgs = {
   input: CreateRestaurantInput;
 };
 
@@ -330,6 +337,24 @@ export type MutationTakeOrderArgs = {
 
 export type MutationVerifyEmailArgs = {
   input: VerifyEmailInput;
+};
+
+export type MyRestaurantInput = {
+  id: Scalars['Float'];
+};
+
+export type MyRestaurantOutput = {
+  __typename?: 'MyRestaurantOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  restaurant?: Maybe<Restaurant>;
+};
+
+export type MyRestaurantsOutput = {
+  __typename?: 'MyRestaurantsOutput';
+  error?: Maybe<Scalars['String']>;
+  ok: Scalars['Boolean'];
+  restaurants: Array<Restaurant>;
 };
 
 export type Order = {
@@ -399,6 +424,8 @@ export type Query = {
   getPayments: GetPaymentsOutput;
   hi: Scalars['Boolean'];
   me: User;
+  myRestaurant: MyRestaurantOutput;
+  myRestaurants: MyRestaurantsOutput;
   restaurant: RestaurantOutput;
   restaurants: RestaurantsOutput;
   searchRestaurant: SearchRestaurantOutput;
@@ -418,6 +445,11 @@ export type QueryGetOrderArgs = {
 
 export type QueryGetOrdersArgs = {
   input: GetOrdersInput;
+};
+
+
+export type QueryMyRestaurantArgs = {
+  input: MyRestaurantInput;
 };
 
 
@@ -558,6 +590,8 @@ export type RestaurantPartsFragment = { __typename?: 'Restaurant', id: number, n
 
 export type CategoryPartsFragment = { __typename?: 'Category', id: number, name: string, coverImage?: string | null, slug: string, restaurantCount: number };
 
+export type DishPartsFragment = { __typename?: 'Dish', id: number, name: string, price: number, photo?: string | null, description: string, options?: Array<{ __typename?: 'DishOption', name: string, extra?: number | null, choices?: Array<string> | null }> | null };
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -604,6 +638,32 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginOutput', ok: boolean, token?: string | null, error?: string | null } };
+
+export type CreateDishMutationVariables = Exact<{
+  input: CreateDishInput;
+}>;
+
+
+export type CreateDishMutation = { __typename?: 'Mutation', createDish: { __typename?: 'CreateDishOutput', ok: boolean, error?: string | null } };
+
+export type CreateRestaurantMutationVariables = Exact<{
+  input: CreateRestaurantInput;
+}>;
+
+
+export type CreateRestaurantMutation = { __typename?: 'Mutation', createRestaurant: { __typename?: 'CreateRestaurantOutput', error?: string | null, ok: boolean, restaurantId: number } };
+
+export type MyRestaurantQueryVariables = Exact<{
+  input: MyRestaurantInput;
+}>;
+
+
+export type MyRestaurantQuery = { __typename?: 'Query', myRestaurant: { __typename?: 'MyRestaurantOutput', ok: boolean, error?: string | null, restaurant?: { __typename?: 'Restaurant', id: number, name: string, coverImage: string, address: string, isPromoted: boolean, menu: Array<{ __typename?: 'Dish', id: number, name: string, price: number, photo?: string | null, description: string, options?: Array<{ __typename?: 'DishOption', name: string, extra?: number | null, choices?: Array<string> | null }> | null }>, category?: { __typename?: 'Category', name: string } | null } | null } };
+
+export type MyRestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MyRestaurantsQuery = { __typename?: 'Query', myRestaurants: { __typename?: 'MyRestaurantsOutput', ok: boolean, error?: string | null, restaurants: Array<{ __typename?: 'Restaurant', id: number, name: string, coverImage: string, address: string, isPromoted: boolean, category?: { __typename?: 'Category', name: string } | null }> } };
 
 export type VerifyEmailMutationVariables = Exact<{
   input: VerifyEmailInput;
