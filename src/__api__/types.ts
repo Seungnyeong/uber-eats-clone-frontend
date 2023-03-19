@@ -87,6 +87,7 @@ export type CreateOrderOutput = {
   __typename?: 'CreateOrderOutput';
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
+  orderId?: Maybe<Scalars['Int']>;
 };
 
 export type CreatePaymentInput = {
@@ -611,7 +612,14 @@ export type RestaurantQueryVariables = Exact<{
 }>;
 
 
-export type RestaurantQuery = { __typename?: 'Query', restaurant: { __typename?: 'RestaurantOutput', error?: string | null, ok: boolean, restaurant?: { __typename?: 'Restaurant', id: number, name: string, coverImage: string, address: string, isPromoted: boolean, category?: { __typename?: 'Category', name: string } | null } | null } };
+export type RestaurantQuery = { __typename?: 'Query', restaurant: { __typename?: 'RestaurantOutput', error?: string | null, ok: boolean, restaurant?: { __typename?: 'Restaurant', id: number, name: string, coverImage: string, address: string, isPromoted: boolean, menu: Array<{ __typename?: 'Dish', id: number, name: string, price: number, photo?: string | null, description: string, options?: Array<{ __typename?: 'DishOption', name: string, extra?: number | null, choices?: Array<string> | null }> | null }>, category?: { __typename?: 'Category', name: string } | null } | null } };
+
+export type CreateOrderMutationVariables = Exact<{
+  input: CreateOrderInput;
+}>;
+
+
+export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'CreateOrderOutput', ok: boolean, error?: string | null, orderId?: number | null } };
 
 export type RestaurantsPageQueryVariables = Exact<{
   input: RestaurantsInput;
