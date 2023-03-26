@@ -1,9 +1,10 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { gql, useMutation, useQuery, useSubscription } from "@apollo/client";
+import React, { useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Dish } from "../../components/dish";
 import {
   DISH_FRAGMENT,
+  FULL_ORDER_FRAGMENT,
   ORDERS_FRAGMENT,
   RESTAURANT_FRAGMENT,
 } from "../../fragments";
@@ -12,6 +13,7 @@ import {
   CreatePaymentMutationVariables,
   MyRestaurantQuery,
   MyRestaurantQueryVariables,
+  PendingOrdersSubscription,
 } from "../../__api__/types";
 import {
   VictoryAxis,
@@ -52,6 +54,15 @@ const CREATE_PAYMENT_MUTATION = gql`
       error
     }
   }
+`;
+
+const PENDING_ORDERS_SUBSCRIPTION = gql`
+  subscription pendingOrders {
+    pendingOrders {
+      ...FullOrderParts
+    }
+  }
+  ${FULL_ORDER_FRAGMENT}
 `;
 
 type IParams = {
@@ -103,6 +114,15 @@ export const MyRestaurant = () => {
       });
     }
   };
+  const { data: subscriptionData } = useSubscription<PendingOrdersSubscription>(
+    PENDING_ORDERS_SUBSCRIPTION
+  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (subscriptionData?.pendingOrders.id) {
+      navigate(`/orders/${subscriptionData.pendingOrders.id}`);
+    }
+  }, [subscriptionData]);
   return (
     <div>
       <Helmet>
