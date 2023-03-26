@@ -169,7 +169,7 @@ export const Order = () => {
                   onClick={() => onButtonClick(OrderStatus.PickedUp)}
                   className="btn"
                 >
-                  Picked up
+                  Picked Up
                 </button>
               )}
               {data?.getOrder.order?.status === OrderStatus.PickedUp && (
@@ -182,12 +182,11 @@ export const Order = () => {
               )}
             </>
           )}
-          {data?.getOrder.order?.status !== OrderStatus.Cooking &&
-            data?.getOrder.order?.status !== OrderStatus.Pending && (
-              <span className=" text-center mt-5 mb-3  text-2xl text-lime-600">
-                Status: {data?.getOrder.order?.status}
-              </span>
-            )}
+          {data?.getOrder.order?.status === OrderStatus.Delivered && (
+            <span className=" text-center mt-5 mb-3  text-2xl text-lime-600">
+              Thank you for using Nuber Eats
+            </span>
+          )}
         </div>
       </div>
     </div>
